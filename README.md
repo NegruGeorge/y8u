@@ -1,54 +1,62 @@
-# Y8u distribution schema.
-https://docs.google.com/spreadsheets/d/1xfHbzNokZrHG_hq0nhGcHF7JNeKWztWOQuctkDOs3Sg/edit#gid=2023591662
+# Y8u Distribution Schema
 
-Following this private doc the distribution schema should match exactly.
+## Overview
+Based on the private documentation provided [here](https://docs.google.com/spreadsheets/d/1xfHbzNokZrHG_hq0nhGcHF7JNeKWztWOQuctkDOs3Sg/edit#gid=2023591662), the Y8u token distribution schema has been meticulously planned to align with the project's strategic goals. 
 
-Exceptions: "public sale" and "Liquidity, Exchanges & MM" will be minted at deployment time  ( 85 mil tokens) and distributed accordingly from the owner account.
+Exceptions:
+- "Public Sale" and "Liquidity, Exchanges & MM" tokens (totaling 85 million) will be minted at the time of deployment and managed directly by the owner for distribution.
 
+## Allocation and Vesting
 
+### Merkle Tree Distributions
+For the following allocations, a Merkle Tree approach will be utilized to securely distribute tokens to users. The tree is constructed using participants' addresses and their total allocation.
 
+#### 1. Private Sale
+- **Allocation**: 20,000,000 tokens
+- **Vesting**: 1% at TGE, then 20-month linear vesting
 
-1. Private Sale
-Allocation: 20,000,000 tokens.
-Vesting: 1% at TGE (Token Generation Event), followed by a 20-month linear vesting period.
-2. Strategic Sale
-Allocation: 25,000,000 tokens.
-Vesting: 10% at TGE, followed by a 19-month linear vesting period.
-3. Strategic Sale 2
-Allocation: 10,000,000 tokens.
-Vesting: 1% at TGE, followed by a 20-month linear vesting period.
+#### 2. Strategic Sale
+- **Allocation**: 25,000,000 tokens
+- **Vesting**: 10% at TGE, then 19-month linear vesting
 
-For this 3 we will use a merkleTree approach for distributing tokens to the users.
-Merkle tree is created with address and totalAllocation. 
+#### 3. Strategic Sale 2
+- **Allocation**: 10,000,000 tokens
+- **Vesting**: 1% at TGE, then 20-month linear vesting
 
+### Direct Claims by Owner
+The following allocations will be claimed directly by the owner and distributed according to the vesting schedules.
 
+#### 5. Airdrop
+- **Allocation**: 5,000,000 tokens
+- **Vesting**: 20% immediately, then over 5 months
 
-5. Airdrop
-Allocation: 5,000,000 tokens.
-Vesting: 20% immediately, with the rest over a 5-month period.
-6. Team
-Allocation: 100,000,000 tokens.
-Vesting: No upfront tokens, 10-month cliff, followed by a 36-month linear vesting period.
-7. Marketing
-Allocation: 95,000,000 tokens.
-Vesting: No upfront tokens, 6-month cliff, followed by a 36-month linear vesting period.
-8. Treasury
-Allocation: 100,000,000 tokens.
-Vesting: No upfront tokens, 12-month cliff, followed by a 24-month linear vesting period.
-9. Development
-Allocation: 100,000,000 tokens.
-Vesting: No upfront tokens, 1-month cliff, followed by a 48-month linear vesting period.
-10. AI Mining
-Allocation: 100,000,000 tokens.
-Vesting: No upfront tokens, 3-month cliff, followed by a 36-month linear vesting period.
-11. Liquidity, Exchanges & MM
-Allocation: 80,000,000 tokens.
-Vesting: 100% at TGE.
-12. Ecosystem
-Allocation: 360,000,000 tokens.
-Vesting: 2% at TGE, followed by a 36-month linear vesting period.
+#### 6. Team
+- **Allocation**: 100,000,000 tokens
+- **Vesting**: 10-month cliff, then 36-month linear vesting
 
-This allocations will be claimed by the owner and distributed accordingly
+#### 7. Marketing
+- **Allocation**: 95,000,000 tokens
+- **Vesting**: 6-month cliff, then 36-month linear vesting
 
+#### 8. Treasury
+- **Allocation**: 100,000,000 tokens
+- **Vesting**: 12-month cliff, then 24-month linear vesting
 
-Each allocation serves a specific purpose in the project's lifecycle, from initial development and team incentivization to broadening the community and ensuring long-term project health through strategic partnerships and ecosystem development. The vesting schedules reflect a balance between immediate liquidity and long-term commitment, ensuring that stakeholders are aligned with the project's success over time.
+#### 9. Development
+- **Allocation**: 100,000,000 tokens
+- **Vesting**: 1-month cliff, then 48-month linear vesting
+
+#### 10. AI Mining
+- **Allocation**: 100,000,000 tokens
+- **Vesting**: 3-month cliff, then 36-month linear vesting
+
+#### 11. Liquidity, Exchanges & MM
+- **Allocation**: 80,000,000 tokens
+- **Vesting**: 100% at TGE
+
+#### 12. Ecosystem
+- **Allocation**: 360,000,000 tokens
+- **Vesting**: 2% at TGE, then 36-month linear vesting
+
+## Purpose and Impact
+Each allocation is designed to serve a specific role in the project's lifecycle, ranging from initial development and team incentivization to community expansion and ecosystem sustainability. The chosen vesting schedules aim to strike a balance between
