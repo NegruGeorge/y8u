@@ -1,7 +1,7 @@
 # Y8u Distribution Schema
 
 ## Overview
-Based on the private documentation provided [here](https://docs.google.com/spreadsheets/d/1xfHbzNokZrHG_hq0nhGcHF7JNeKWztWOQuctkDOs3Sg/edit#gid=2023591662), the Y8u token distribution schema has been meticulously planned to align with the project's strategic goals. 
+Based on the distribution documentation provided [here](https://docs.google.com/spreadsheets/d/1xfHbzNokZrHG_hq0nhGcHF7JNeKWztWOQuctkDOs3Sg/edit#gid=2023591662), the Y8u token distribution schema has been meticulously planned to align with the project's strategic goals. 
 
 Exceptions:
 - "Public Sale" and "Liquidity, Exchanges & MM" tokens (totaling 85 million) will be minted at the time of deployment and managed directly by the owner for distribution.
