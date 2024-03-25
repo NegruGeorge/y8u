@@ -13,7 +13,7 @@ contract Y8uERC20 is ERC20, ERC20Burnable, Ownable {
         Ownable(initialOwner)
     {}
 
-    // amount in wei to mint
+    // Amount in wei to mint to "to" address 
     function mint(address to, uint256 amount) public onlyOwner {
         require(totalSupply() + amount <= MAX_SUPPLY,"Can't mint more than the entire supply");
         _mint(to, amount);
