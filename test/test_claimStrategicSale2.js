@@ -49,6 +49,8 @@ describe("Y8uDistributor Tests StategicSale2", function () {
 
         merkleTree = StandardMerkleTree.of(allocations, ["address", "uint256"]);
         await expect(claimTokens(addr1, ethers.parseEther("100000"), addr1)).to.be.revertedWith("TGE not started")
+        expect(await distributor.calculateClaimableStrategicSale2(ethers.parseEther("100000"), addr1)).to.eq(0)
+
         await distributor.setTgeTimestamp();
         await expect(claimTokens(addr1, ethers.parseEther("100000"), addr1)).to.be.revertedWith("Invalid Merkle proof Strategic sale 2")
 

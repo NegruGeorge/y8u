@@ -52,6 +52,8 @@ describe("Y8uDistributor Tests ", function () {
         // Set the Merkle root for private sale in the distributor contract
         
         await expect(claimTokens(addr1, ethers.parseEther("100000"), addr1)).to.be.revertedWith("TGE not started")
+        expect(await distributor.calculateClaimablePrivateSale(ethers.parseEther("100000"), addr1)).to.eq(0)
+        
         await distributor.setTgeTimestamp();
         await expect(claimTokens(addr1, ethers.parseEther("100000"), addr1)).to.be.revertedWith("Invalid Merkle proof Private sale")
 

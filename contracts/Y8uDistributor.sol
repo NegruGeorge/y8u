@@ -98,6 +98,10 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
     }
 
     function calculateClaimablePrivateSale(uint256 totalAllocation, address account) public view returns (uint256) {
+        if(tgeTimestamp == 0){
+            return 0;
+        }
+
         uint256 monthOfDistribution = (block.timestamp - tgeTimestamp) / 30 days + 1;
         uint256 totalClaimable;
 
@@ -138,6 +142,10 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
     }
 
     function calculateClaimableStrategicSale(uint256 totalAllocation, address account) public view returns (uint256) {
+        if(tgeTimestamp == 0){
+            return 0;
+        }
+
         uint256 monthOfDistribution = (block.timestamp - tgeTimestamp) / 30 days + 1;
         uint256 totalClaimable;
 
@@ -179,6 +187,10 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
     }
 
     function calculateClaimableStrategicSale2(uint256 totalAllocation, address account) public view returns (uint256) {
+        if(tgeTimestamp == 0){
+            return 0;
+        }
+        
         uint256 monthOfDistribution = (block.timestamp - tgeTimestamp) / 30 days + 1;
         uint256 totalClaimable;
 
