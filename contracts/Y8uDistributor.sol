@@ -249,17 +249,14 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         uint256 monthOfDistribution = (block.timestamp - tgeTimestamp) / 30 days + 1;
         uint256 totalClaimable;
 
-        if (monthOfDistribution >= 11 && monthOfDistribution <= 46) {
+        if (monthOfDistribution >= 11 && monthOfDistribution < 46) {
             totalClaimable = 2_777_778 * (10 ** uint256(18)) * (monthOfDistribution - 10);  // Monthly release for months 11 to 46
-        } else if (monthOfDistribution > 46) {
+        } else if (monthOfDistribution >= 46) {
             totalClaimable = 100_000_000 * (10 ** uint256(18)); // Entire allocation is available after 46 months
         }
 
         uint256 alreadyClaimed = totalClaimedTeam;
 
-        if(totalClaimable > TEAM){
-            totalClaimable = TEAM;
-        }
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
 
@@ -277,17 +274,14 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         uint256 monthOfDistribution = (block.timestamp - tgeTimestamp) / 30 days + 1;
         uint256 totalClaimable;
 
-        if (monthOfDistribution >= 7 && monthOfDistribution <= 42) {
+        if (monthOfDistribution >= 7 && monthOfDistribution < 42) {
             totalClaimable = 2_638_889 * (10 ** uint256(18)) * (monthOfDistribution - 6);  // Monthly release for months 7 to 42
-        } else if (monthOfDistribution > 42) {
+        } else if (monthOfDistribution >= 42) {
             totalClaimable = 95_000_000 * (10 ** uint256(18)); // Entire allocation is available after 42 months
         }
 
         uint256 alreadyClaimed = totalClaimedMarketing;
         
-        if(totalClaimable > MARKETING){
-            totalClaimable = MARKETING;
-        }
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
 
@@ -305,16 +299,13 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         uint256 monthOfDistribution = (block.timestamp - tgeTimestamp) / 30 days + 1;
         uint256 totalClaimable;
 
-        if (monthOfDistribution >= 13 && monthOfDistribution <= 36) {
+        if (monthOfDistribution >= 13 && monthOfDistribution < 36) {
             totalClaimable = 4_166_667 * (10 ** uint256(18)) * (monthOfDistribution - 12);  // Monthly release for months 13 to 36
-        } else if (monthOfDistribution > 36) {
+        } else if (monthOfDistribution >= 36) {
             totalClaimable = 100_000_000 * (10 ** uint256(18)); // Entire allocation is available after 36 months
         }
 
         uint256 alreadyClaimed = totalClaimedTreasury;
-        if(totalClaimable > TREASURY){
-            totalClaimable = TREASURY;
-        }
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
         
@@ -358,17 +349,13 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         uint256 monthOfDistribution = (block.timestamp - tgeTimestamp) / 30 days + 1;
         uint256 totalClaimable;
 
-        if (monthOfDistribution >= 4 && monthOfDistribution <= 39) {
+        if (monthOfDistribution >= 4 && monthOfDistribution < 39) {
             totalClaimable = 2_777_778 * (10 ** uint256(18)) * (monthOfDistribution - 3);  // Monthly release for months 4 to 39
-        } else if (monthOfDistribution > 39) {
+        } else if (monthOfDistribution >= 39) {
             totalClaimable = 100_000_000 * (10 ** uint256(18)); // Entire allocation is available after 39 months
         }
 
         uint256 alreadyClaimed = totalClaimedAiMining;
-
-        if(totalClaimable > AI_MINING){
-            totalClaimable = AI_MINING;
-        }
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
 
