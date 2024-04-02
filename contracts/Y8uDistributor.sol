@@ -227,10 +227,6 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         }
 
         uint256 alreadyClaimed = totalClaimedAirdrop;
-
-        if(totalClaimable > AIRDROP){
-            totalClaimable = AIRDROP;
-        }
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
 
@@ -328,10 +324,6 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         }
 
         uint256 alreadyClaimed = totalClaimedDevelopment;
-
-        if(totalClaimable > DEVELOPMENT){
-            totalClaimable = DEVELOPMENT;
-        }
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
 
@@ -381,10 +373,6 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         }
 
         uint256 alreadyClaimed = totalClaimedEcosystem;
-
-        if(totalClaimable > ECOSYSTEM){
-            totalClaimable = ECOSYSTEM;
-        }
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
 
