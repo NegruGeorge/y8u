@@ -111,10 +111,10 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
             totalClaimable = totalAllocation * 400_000 / 20_000_000; // Month 2
         } else if (monthOfDistribution == 3) {
             totalClaimable = totalAllocation * 600_000 / 20_000_000; // Month 3
-        } else if (monthOfDistribution >= 4 && monthOfDistribution <= 23) {
+        } else if (monthOfDistribution < 23) {
             uint256 monthlyReleaseForMonths4To23 = totalAllocation * 970_000; // Monthly release for months 4 to 23
             totalClaimable = (totalAllocation * 600_000 + (monthOfDistribution - 3) * monthlyReleaseForMonths4To23) / 20_000_000;
-        } else if (monthOfDistribution > 23) {
+        } else {
             totalClaimable = totalAllocation; // Entire allocation is available after 23 months
         }
         if(totalClaimable > totalAllocation){
@@ -155,10 +155,10 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
             totalClaimable = totalAllocation * 2_750_000 / 25_000_000; // Month 2
         } else if (monthOfDistribution == 3) {
             totalClaimable = totalAllocation * 3_000_000 / 25_000_000; // Month 3
-        } else if (monthOfDistribution >= 4 && monthOfDistribution <= 22) {
+        } else if (monthOfDistribution < 22) {
             uint256 monthlyReleaseForMonths4To22 = totalAllocation * 1_157_895;  // Monthly release for months 4 to 22
             totalClaimable = (totalAllocation * 3_000_000 + (monthOfDistribution - 3) * monthlyReleaseForMonths4To22) / 25_000_000; 
-        } else if (monthOfDistribution > 22) {
+        } else {
             totalClaimable = totalAllocation; // Entire allocation is available after 22 months
         }
 
@@ -200,10 +200,10 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
             totalClaimable = totalAllocation * 200_000 / 10_000_000; // Month 2
         } else if (monthOfDistribution == 3) {
             totalClaimable = totalAllocation * 300_000 / 10_000_000; // Month 3
-        } else if (monthOfDistribution >= 4 && monthOfDistribution <= 23) {
+        } else if ( monthOfDistribution < 23) {
             uint256 monthlyReleaseForMonths4To23 = totalAllocation * 485_000; // Monthly release for months 4 to 23
             totalClaimable = (totalAllocation * 300_000 + (monthOfDistribution - 3) * monthlyReleaseForMonths4To23) / 10_000_000;
-        } else if (monthOfDistribution > 23) {
+        } else {
             totalClaimable = totalAllocation; // Entire allocation is available after 23 months
         }
 
@@ -221,9 +221,9 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         uint256 monthOfDistribution = (block.timestamp - tgeTimestamp) / 30 days + 1;
         uint256 totalClaimable;
 
-        if (monthOfDistribution >= 1 && monthOfDistribution <= 5) {
+        if ( monthOfDistribution <= 5 ) {
             totalClaimable = 1_000_000 * (10 ** uint256(18)) * monthOfDistribution ;  // Monthly release for months 1 to 5
-        } else if (monthOfDistribution > 5) {
+        } else {
             totalClaimable = 5_000_000 * (10 ** uint256(18)); // Entire allocation is available after 46 months
         }
 
@@ -331,9 +331,9 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         uint256 monthOfDistribution = (block.timestamp - tgeTimestamp) / 30 days + 1;
         uint256 totalClaimable;
 
-        if (monthOfDistribution >= 2 && monthOfDistribution <= 49) {
+        if (monthOfDistribution >= 2 && monthOfDistribution < 49) {
             totalClaimable = 2_083_333 * (10 ** uint256(18)) * (monthOfDistribution - 1);  // Monthly release for months 2 to 49
-        } else if (monthOfDistribution > 49) {
+        } else if (monthOfDistribution >= 49) {
             totalClaimable = 100_000_000 * (10 ** uint256(18)); // Entire allocation is available after 49 months
         }
 
@@ -385,12 +385,12 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         uint256 monthOfDistribution = (block.timestamp - tgeTimestamp) / 30 days + 1;
         uint256 totalClaimable;
 
-        if (monthOfDistribution >=1 && monthOfDistribution <5) {
+        if ( monthOfDistribution <5 ) {
             totalClaimable = 7_200_000 * (10 ** uint256(18)) ; // At TGE
-        } else if (monthOfDistribution >= 5 && monthOfDistribution <= 40) {
+        } else if (monthOfDistribution < 40) {
             uint256 monthlyReleaseForMonths5To40 = 9_800_000 * (10 ** uint256(18));  // Monthly release for months 5 to 40
             totalClaimable = 7_200_000 * (10 ** uint256(18)) + (monthOfDistribution - 4) * monthlyReleaseForMonths5To40;
-        } else if (monthOfDistribution > 40) {
+        } else {
             totalClaimable = 360_000_000 * (10 ** uint256(18)); // Entire allocation is available after 40 months
         }
 

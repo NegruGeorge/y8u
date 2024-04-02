@@ -84,7 +84,7 @@ describe("Y8uDistributor Tests Development", function () {
         await distributor.claimDevelopment();
 
         const balance = await distributor.totalClaimedDevelopment();
-        expect(balance).to.equal(ethers.parseEther("2083333") * BigInt(48));
+        expect(balance).to.equal(ethers.parseEther("100000000"));
 
         await expect(distributor.claimDevelopment()).to.be.revertedWith("claimable amount is 0");
     });
