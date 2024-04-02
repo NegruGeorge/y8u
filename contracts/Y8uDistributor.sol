@@ -33,14 +33,14 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
     uint256 public totalClaimedPrivateSale;
     uint256 public totalClaimedStrategicSale;
     uint256 public totalClaimedStrategicSale2;
-    uint256 public totalClaimedPublicSale = 5_000_000 * (10 ** uint256(18));
+    uint256 public constant totalClaimedPublicSale = 5_000_000 * (10 ** uint256(18));
     uint256 public totalClaimedAirdrop;
     uint256 public totalClaimedTeam;
     uint256 public totalClaimedMarketing;
     uint256 public totalClaimedTreasury;
     uint256 public totalClaimedDevelopment;
     uint256 public totalClaimedAiMining;
-    uint256 public totalClaimedLiquidityExchangesMM = 80_000_000 * (10 ** uint256(18));
+    uint256 public constant totalClaimedLiquidityExchangesMM = 80_000_000 * (10 ** uint256(18));
     uint256 public totalClaimedEcosystem;
 
     mapping(address => uint256 ) public claimedAmountsPrivateSale;
@@ -190,7 +190,7 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         if(tgeTimestamp == 0){
             return 0;
         }
-        
+
         uint256 monthOfDistribution = (block.timestamp - tgeTimestamp) / 30 days + 1;
         uint256 totalClaimable;
 
