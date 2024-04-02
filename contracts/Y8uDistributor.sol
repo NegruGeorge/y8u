@@ -62,6 +62,7 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
     }
     
     function setTgeTimestamp() external onlyOwner {
+        require(tgeTimestamp == 0, "Can start the TGE only once");
         tgeTimestamp = block.timestamp;
     }
 

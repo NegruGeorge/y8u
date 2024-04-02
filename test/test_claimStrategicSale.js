@@ -58,8 +58,8 @@ describe("Y8uDistributor Tests StategicSale", function () {
         await distributor.setMerkleRootStrategicSale(merkleTree.root);
         await distributor.setMerkleRootStrategicSale(merkleTree.root);
 
-        await distributor.setTgeTimestamp();
-    });
+        await expect(distributor.setTgeTimestamp()).to.be.revertedWith("Can start the TGE only once");
+        });
 
     async function claimTokens(claimer, totalAllocation, account) {
         const leaf = [account.address, totalAllocation.toString()];

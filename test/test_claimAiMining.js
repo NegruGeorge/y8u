@@ -35,6 +35,9 @@ describe("Y8uDistributor Tests AiMining", function () {
         await expect(distributor.claimAiMining()).to.be.revertedWith("TGE not started");
 
         await distributor.setTgeTimestamp();
+
+        await expect(distributor.setTgeTimestamp()).to.be.revertedWith("Can start the TGE only once");
+
     });
 
     it("Should fail claiming with other address than the owner", async function (){
