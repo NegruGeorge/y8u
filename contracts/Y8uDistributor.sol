@@ -46,7 +46,17 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
     mapping(address => uint256 ) public claimedAmountsStrategicSale;
     mapping(address => uint256 ) public claimedAmountsStrategicSale2;
 
-    event Claimed(address indexed account, uint256 amount);
+    event ClaimedPrivateSale(address indexed account, uint256 amount);
+    event ClaimedStrategicSale(address indexed account, uint256 amount);
+    event ClaimedStrategicSale2(address indexed account, uint256 amount);
+    event ClaimedAirdrop(address indexed account, uint256 amount);
+    event ClaimedTeam(address indexed account, uint256 amount);
+    event ClaimedMarketing(address indexed account, uint256 amount);
+    event ClaimedTreasury(address indexed account, uint256 amount);
+    event ClaimedDevelopment(address indexed account, uint256 amount);
+    event ClaimedAiMining(address indexed account, uint256 amount);
+    event ClaimedEcosystem(address indexed account, uint256 amount);
+
 
     Y8uERC20 public y8u;
     
@@ -93,7 +103,7 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         totalClaimedPrivateSale +=claimable;
         y8u.mint(msg.sender, claimable);
 
-        emit Claimed(msg.sender, claimable);
+        emit ClaimedPrivateSale(msg.sender, claimable);
     }
 
     function calculateClaimablePrivateSale(uint256 totalAllocation, address account) public view returns (uint256) {
@@ -137,7 +147,7 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         totalClaimedStrategicSale += claimable;
         y8u.mint(msg.sender, claimable);
 
-        emit Claimed(msg.sender, claimable);
+        emit ClaimedStrategicSale(msg.sender, claimable);
     }
 
     function calculateClaimableStrategicSale(uint256 totalAllocation, address account) public view returns (uint256) {
@@ -182,7 +192,7 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         totalClaimedStrategicSale2 += claimable;
         y8u.mint(msg.sender, claimable);
 
-        emit Claimed(msg.sender, claimable);
+        emit ClaimedStrategicSale2(msg.sender, claimable);
     }
 
     function calculateClaimableStrategicSale2(uint256 totalAllocation, address account) public view returns (uint256) {
@@ -232,7 +242,7 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         totalClaimedAirdrop += claimable;
         y8u.mint(msg.sender, claimable);
 
-        emit Claimed(msg.sender, claimable);
+        emit ClaimedAirdrop(msg.sender, claimable);
 
     }
 
@@ -254,7 +264,7 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         totalClaimedTeam += claimable;
         y8u.mint(msg.sender, claimable);
 
-        emit Claimed(msg.sender, claimable);
+        emit ClaimedTeam(msg.sender, claimable);
     }
 
 
@@ -276,7 +286,7 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         totalClaimedMarketing += claimable;
         y8u.mint(msg.sender, claimable);
 
-        emit Claimed(msg.sender, claimable);
+        emit ClaimedMarketing(msg.sender, claimable);
     }
 
 
@@ -297,7 +307,7 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         totalClaimedTreasury += claimable;
         y8u.mint(msg.sender, claimable);
 
-        emit Claimed(msg.sender, claimable);
+        emit ClaimedTreasury(msg.sender, claimable);
     }
    
     function claimDevelopment() external onlyOwner {
@@ -317,7 +327,7 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         totalClaimedDevelopment += claimable;
         y8u.mint(msg.sender, claimable);
 
-        emit Claimed(msg.sender, claimable);
+        emit ClaimedDevelopment(msg.sender, claimable);
     }
 
     function claimAiMining() external onlyOwner {
@@ -337,7 +347,7 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         totalClaimedAiMining += claimable;
         y8u.mint(msg.sender, claimable);
 
-        emit Claimed(msg.sender, claimable);
+        emit ClaimedAiMining(msg.sender, claimable);
     }
 
     function claimEcosystem() external onlyOwner {
@@ -360,6 +370,6 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         totalClaimedEcosystem += claimable;
         y8u.mint(msg.sender, claimable);
 
-        emit Claimed(msg.sender, claimable);
+        emit ClaimedEcosystem(msg.sender, claimable);
     }
 }
