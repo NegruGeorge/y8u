@@ -229,9 +229,6 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         uint256 alreadyClaimed = totalClaimedAirdrop;
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
-
-        require(totalClaimedAirdrop + claimable <= AIRDROP, "Airdrop allocation is 100%");
-
         totalClaimedAirdrop += claimable;
         y8u.mint(msg.sender, claimable);
 
@@ -254,9 +251,6 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
 
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
-
-        require(totalClaimedTeam + claimable <= TEAM, "Team allocation is 100%");
-
         totalClaimedTeam += claimable;
         y8u.mint(msg.sender, claimable);
 
@@ -279,9 +273,6 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
-
-        require(totalClaimedMarketing + claimable <= MARKETING, "Marketing allocation is 100%");
-
         totalClaimedMarketing += claimable;
         y8u.mint(msg.sender, claimable);
 
@@ -303,9 +294,6 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         uint256 alreadyClaimed = totalClaimedTreasury;
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
-        
-        require(totalClaimedTreasury + claimable <= TREASURY, "Treasury allocation is 100%");
-
         totalClaimedTreasury += claimable;
         y8u.mint(msg.sender, claimable);
 
@@ -326,9 +314,6 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         uint256 alreadyClaimed = totalClaimedDevelopment;
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
-
-        require(totalClaimedDevelopment + claimable <= DEVELOPMENT, "Development allocation is 100%");
-
         totalClaimedDevelopment += claimable;
         y8u.mint(msg.sender, claimable);
 
@@ -349,9 +334,6 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         uint256 alreadyClaimed = totalClaimedAiMining;
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
-
-        require(totalClaimedAiMining + claimable <= AI_MINING, "Ai Mining allocation is 100%");
-
         totalClaimedAiMining += claimable;
         y8u.mint(msg.sender, claimable);
 
@@ -375,9 +357,6 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         uint256 alreadyClaimed = totalClaimedEcosystem;
         uint256 claimable = totalClaimable >= alreadyClaimed ? totalClaimable - alreadyClaimed : 0;
         require(claimable != 0, "claimable amount is 0");
-
-        require(totalClaimedEcosystem + claimable <= ECOSYSTEM, "Ecosystem allocation is 100%");
-
         totalClaimedEcosystem += claimable;
         y8u.mint(msg.sender, claimable);
 
