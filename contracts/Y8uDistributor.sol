@@ -233,7 +233,7 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
         if ( monthOfDistribution <= 5 ) {
             totalClaimable = 1_000_000 * (10 ** uint256(18)) * monthOfDistribution ;  // Monthly release for months 1 to 5
         } else {
-            totalClaimable = 5_000_000 * (10 ** uint256(18)); // Entire allocation is available after 46 months
+            totalClaimable = 5_000_000 * (10 ** uint256(18)); // Entire allocation is available after 5 months
         }
 
         uint256 alreadyClaimed = totalClaimedAirdrop;
