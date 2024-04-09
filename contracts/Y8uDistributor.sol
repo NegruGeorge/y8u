@@ -60,14 +60,14 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
 
     Y8uERC20 public y8u;
     
-    constructor(address initialOwner) Ownable(initialOwner) {
+    constructor() Ownable(0xe8707Ed7E5e7A230c12d4DcC037827B7F4dC355c) {
         y8u = new Y8uERC20(address(this));
 
         // mint public sale
-        y8u.mint(initialOwner, PUBLIC_SALE);
+        y8u.mint(0xe8707Ed7E5e7A230c12d4DcC037827B7F4dC355c, PUBLIC_SALE);
 
         // mint liquidity, exchanges, MM
-        y8u.mint(initialOwner, LIQUIDITY_EXCHANGES_MM);
+        y8u.mint(0xe8707Ed7E5e7A230c12d4DcC037827B7F4dC355c, LIQUIDITY_EXCHANGES_MM);
     }
     
     function setTgeTimestamp() external onlyOwner {
