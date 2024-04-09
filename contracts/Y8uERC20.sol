@@ -9,7 +9,7 @@ contract Y8uERC20 is ERC20, ERC20Burnable, Ownable {
     uint256 public constant MAX_SUPPLY = 1_000_000_000 * (10 ** uint256(18));
 
     constructor()
-        ERC20("Y8U", "Y8U")
+        ERC20("Y8U.AI", "Y8U")
         Ownable(msg.sender)
     {}
 
