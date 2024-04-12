@@ -7,7 +7,7 @@ import '@openzeppelin/contracts/utils/cryptography/MerkleProof.sol';
 import '@openzeppelin/contracts/utils/ReentrancyGuard.sol';
 import "./Y8uERC20.sol";
 
-contract Y8uDistributor is Ownable, ReentrancyGuard {
+contract Y8uDistributorTesting is Ownable, ReentrancyGuard {
     using SafeERC20 for Y8uERC20;
 
     uint256 public constant PRIVATE_SALE =  20_000_000 * (10 ** uint256(18));
@@ -61,7 +61,9 @@ contract Y8uDistributor is Ownable, ReentrancyGuard {
 
     Y8uERC20 public y8u;
     
-    constructor() Ownable(0xe8707Ed7E5e7A230c12d4DcC037827B7F4dC355c) {
+    constructor() Ownable(msg.sender) {
+
+    // constructor() Ownable(0xe8707Ed7E5e7A230c12d4DcC037827B7F4dC355c) {
         y8u = new Y8uERC20();
 
         // mint public sale

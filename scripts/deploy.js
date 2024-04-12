@@ -8,7 +8,7 @@ async function main() {
  
   console.log(`deploy in progress...`);
   const Y8uDistributor = await ethers.getContractFactory("Y8uDistributor");
-  distributor = await Y8uDistributor.deploy(owner.address);
+  distributor = await Y8uDistributor.deploy();
   // Access the Y8uERC20 token instance from the Y8uDistributor contract
   const tokenAddress = await distributor.y8u();
   token = await ethers.getContractAt("Y8uERC20", tokenAddress);

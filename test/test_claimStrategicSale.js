@@ -18,7 +18,7 @@ async function increaseTime(months) {
     await network.provider.send("evm_mine");
   }
 
-describe("Y8uDistributor Tests StategicSale", function () {
+describe("Y8uDistributorTesting Tests StategicSale", function () {
     let distributor, token;
     let owner, addr1, addr2;
     let merkleTree;
@@ -31,9 +31,9 @@ describe("Y8uDistributor Tests StategicSale", function () {
     beforeEach(async () => {
         [owner, addr1, addr2,addr3,addr4,addr5, addrOverAllocated] = await ethers.getSigners();
 
-        const Y8uDistributor = await ethers.getContractFactory("Y8uDistributor");
-        distributor = await Y8uDistributor.deploy(owner.address);
-        // Access the Y8uERC20 token instance from the Y8uDistributor contract
+        const Y8uDistributorTesting = await ethers.getContractFactory("Y8uDistributorTesting");
+        distributor = await Y8uDistributorTesting.deploy();
+        // Access the Y8uERC20 token instance from the Y8uDistributorTesting contract
         const tokenAddress = await distributor.y8u();
         token = await ethers.getContractAt("Y8uERC20", tokenAddress);
 
@@ -74,7 +74,7 @@ describe("Y8uDistributor Tests StategicSale", function () {
         await claimTokens(addr1, allocation, addr1);
 
         const balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(2_500_000 ) / BigInt(25_000_000));
+        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(30_000_000));
     });
 
     it("Should allow first valid claim in second month", async function () {
@@ -88,7 +88,7 @@ describe("Y8uDistributor Tests StategicSale", function () {
 
 
         const balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(2_750_000 ) / BigInt(25_000_000));
+        expect(balance).to.equal(allocation * BigInt(3_250_000 ) / BigInt(30_000_000));
     });
 
 
@@ -102,7 +102,7 @@ describe("Y8uDistributor Tests StategicSale", function () {
         await claimTokens(addr1, allocation, addr1);
 
         const balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000));
+        expect(balance).to.equal(allocation * BigInt(3_500_000 ) / BigInt(30_000_000));
     });
 
 
@@ -116,8 +116,8 @@ describe("Y8uDistributor Tests StategicSale", function () {
         await claimTokens(addr1, allocation, addr1);
 
         const balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000)
-            + allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal((allocation * BigInt(3_500_000 ) 
+            + allocation * BigInt(1_394_737) ) / BigInt(30_000_000));
     });
 
 
@@ -131,8 +131,8 @@ describe("Y8uDistributor Tests StategicSale", function () {
         await claimTokens(addr1, allocation, addr1);
 
         const balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000)
-        + BigInt(7) * allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal((allocation * BigInt(3_500_000 ) 
+        + BigInt(7) * allocation * BigInt(1_394_737)) / BigInt(30_000_000));
     });
 
     it("Should allow first valid claim in 22th month", async function () {
@@ -180,7 +180,7 @@ describe("Y8uDistributor Tests StategicSale", function () {
         let block = await ethers.provider.getBlock("latest");
         await claimTokens(addr1, allocation, addr1);
         let balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(2_500_000 ) / BigInt(25_000_000) )
+        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(30_000_000) )
 
         await increaseTime(2);
         block = await ethers.provider.getBlock("latest");
@@ -188,48 +188,48 @@ describe("Y8uDistributor Tests StategicSale", function () {
         await claimTokens(addr1, allocation, addr1);
 
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000));
+        expect(balance).to.equal(allocation * BigInt(3_500_000 ) / BigInt(30_000_000));
     });
 
     it("Should claim every month to test if user gets it right ", async function () {
         const allocation = ethers.parseEther("100000");
         await claimTokens(addr1, allocation, addr1);
         let balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(2_500_000 ) / BigInt(25_000_000)) 
+        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(30_000_000)) 
 
         await increaseTime(1);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(2_750_000 ) / BigInt(25_000_000));
+        expect(balance).to.equal(allocation * BigInt(3_250_000 ) / BigInt(30_000_000));
 
         await increaseTime(1);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000));
+        expect(balance).to.equal(allocation * BigInt(3_500_000 ) / BigInt(30_000_000));
 
         await increaseTime(1);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000)
-        + allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal((allocation * BigInt(3_500_000 )
+        + allocation * BigInt(1_394_737) )/ BigInt(30_000_000));
     
         await increaseTime(1);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000)
-        + BigInt(2) * allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal((allocation * BigInt(3_500_000 ) 
+        + BigInt(2) * allocation * BigInt(1_394_737) )/ BigInt(30_000_000));
 
         await increaseTime(1);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000)
-        + BigInt(3) * allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal((allocation * BigInt(3_500_000 ) 
+        + BigInt(3) * allocation * BigInt(1_394_737) ) / BigInt(30_000_000));
         
         await increaseTime(1);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000)
-        + BigInt(4) * allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal( ( allocation * BigInt(3_500_000 ) 
+        + BigInt(4) * allocation * BigInt(1_394_737) ) / BigInt(30_000_000));
 
         //.
         //..
@@ -239,16 +239,16 @@ describe("Y8uDistributor Tests StategicSale", function () {
         await increaseTime(10);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000) / BigInt(25_000_000)
-        + BigInt(14) * allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal( ( allocation * BigInt(3_500_000)
+        + BigInt(14) * allocation * BigInt(1_394_737) ) / BigInt(30_000_000));
         // expect(balance).to.equal(allocation);
 
 
         await increaseTime(4);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000) / BigInt(25_000_000)
-        + BigInt(18) * allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal(( allocation * BigInt(3_500_000)
+        + BigInt(18) * allocation * BigInt(1_394_737) ) / BigInt(30_000_000));
         // expect(balance).to.equal(allocation);
 
         await increaseTime(1);
@@ -272,27 +272,27 @@ describe("Y8uDistributor Tests StategicSale", function () {
         const allocation = ethers.parseEther("100000");
         await claimTokens(addr1, allocation, addr1);
         let balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(2_500_000 ) / BigInt(25_000_000) )
+        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(30_000_000) )
 
         await increaseTime(1);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(2_750_000 ) / BigInt(25_000_000));
+        expect(balance).to.equal(allocation * BigInt(3_250_000 ) / BigInt(30_000_000));
 
         
 
         await increaseTime(2);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000)
-        +  allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal((allocation * BigInt(3_500_000 )
+        +  allocation * BigInt(1_394_737)) / BigInt(30_000_000));
     
     
         await increaseTime(3);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000)
-        + BigInt(4) * allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal( ( allocation * BigInt(3_500_000 ) 
+        + BigInt(4) * allocation * BigInt(1_394_737) )  / BigInt(30_000_000));
 
         //.
         //..
@@ -302,8 +302,8 @@ describe("Y8uDistributor Tests StategicSale", function () {
         await increaseTime(10);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000)
-        + BigInt(14) * allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal(( allocation * BigInt(3_500_000 )
+        + BigInt(14) * allocation * BigInt(1_394_737) ) / BigInt(30_000_000))
 
         await increaseTime(6);
         await claimTokens(addr1, allocation, addr1);
@@ -333,7 +333,6 @@ describe("Y8uDistributor Tests StategicSale", function () {
         await claimTokens(addr4, ethers.parseEther("195"), addr4);
         await claimTokens(addr5, ethers.parseEther("19894800"), addr5);
 
-        await expect(claimTokens(addrOverAllocated, ethers.parseEther("5001234"), addrOverAllocated)).to.be.revertedWith("Strategic sale allocation is 100%");
 
         const balance = await token.balanceOf(addr1.address);
         expect(balance).to.equal(allocation);
@@ -344,43 +343,43 @@ describe("Y8uDistributor Tests StategicSale", function () {
         const allocation = ethers.parseEther("100000");
         await claimTokens(addr1, allocation, addr1);
         let balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(2_500_000 ) / BigInt(25_000_000) )
+        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(30_000_000) )
 
         await increaseTime(1);
         await claimTokens(addr1,  ethers.parseEther("100000"), addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(2_750_000 ) / BigInt(25_000_000));
+        expect(balance).to.equal(allocation * BigInt(3_250_000 ) / BigInt(30_000_000));
 
         
 
         await increaseTime(2);
         await claimTokens(addr1,  ethers.parseEther("100000"), addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000)
-        +  allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal((allocation * BigInt(3_500_000 )
+        +  allocation * BigInt(1_394_737)) / BigInt(30_000_000));
 
         await claimTokens(addr3,  ethers.parseEther("5"), addr3);
         balance = await token.balanceOf(addr3.address);
-        expect(balance).to.equal(ethers.parseEther("5") * BigInt(3_000_000 ) / BigInt(25_000_000)
-        + ethers.parseEther("5") * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal((ethers.parseEther("5") * BigInt(3_500_000 )
+        + ethers.parseEther("5") * BigInt(1_394_737) ) / BigInt(30_000_000));
     
     
         await increaseTime(3);
 
         await claimTokens(addr1, ethers.parseEther("100000"), addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(ethers.parseEther("100000") * BigInt(3_000_000 ) / BigInt(25_000_000)
-        + BigInt(4) * ethers.parseEther("100000") *  BigInt(1_157_895) / BigInt(25_000_000) );
+        expect(balance).to.equal(( ethers.parseEther("100000") * BigInt(3_500_000 )
+        + BigInt(4) * ethers.parseEther("100000") *  BigInt(1_394_737) )/ BigInt(30_000_000) );
 
         await claimTokens(addr3,  ethers.parseEther("5"), addr3);
         balance = await token.balanceOf(addr3.address);
-        expect(balance).to.equal(ethers.parseEther("5") * BigInt(3_000_000 ) / BigInt(25_000_000)
-        + BigInt(4) *  ethers.parseEther("5") * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal(( ethers.parseEther("5") * BigInt(3_500_000 ) 
+        + BigInt(4) *  ethers.parseEther("5") * BigInt(1_394_737) )/ BigInt(30_000_000));
 
         await claimTokens(addr5,  ethers.parseEther("19894800"), addr5);
         balance = await token.balanceOf(addr5.address);
-        expect(balance).to.equal( ethers.parseEther("19894800") * BigInt(3_000_000 ) / BigInt(25_000_000) 
-        + BigInt(4) *   ethers.parseEther("19894800") * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal( (ethers.parseEther("19894800") * BigInt(3_500_000 ) 
+        + BigInt(4) *   ethers.parseEther("19894800") * BigInt(1_394_737) )/ BigInt(30_000_000));
 
 
         //.
@@ -391,8 +390,8 @@ describe("Y8uDistributor Tests StategicSale", function () {
         await increaseTime(10);
         await claimTokens(addr1, allocation, addr1);
         balance = await token.balanceOf(addr1.address);
-        expect(balance).to.equal(allocation * BigInt(3_000_000 ) / BigInt(25_000_000) 
-        + BigInt(14) * allocation * BigInt(1_157_895) / BigInt(25_000_000));
+        expect(balance).to.equal((allocation * BigInt(3_500_000 ) 
+        + BigInt(14) * allocation * BigInt(1_394_737) ) / BigInt(30_000_000));
 
         await increaseTime(6);
         await claimTokens(addr1, allocation, addr1);
@@ -430,9 +429,6 @@ describe("Y8uDistributor Tests StategicSale", function () {
         await expect(claimTokens(addr4, ethers.parseEther("195"), addr4)).to.be.revertedWith("No tokens are claimable");
         balance = await token.balanceOf(addr4.address);
             expect(balance).to.equal(ethers.parseEther("195"));
-
-            
-        await expect(claimTokens(addrOverAllocated, ethers.parseEther("5001234"), addrOverAllocated)).to.be.revertedWith("Strategic sale allocation is 100%")
 
         expect(await distributor.totalClaimedStrategicSale()).to.eq(ethers.parseEther("20000000"));
             

@@ -18,7 +18,7 @@ async function increaseTime(months) {
     await network.provider.send("evm_mine");
   }
 
-describe("Y8uDistributor Tests AiMining", function () {
+describe("Y8uDistributorTesting Tests AiMining", function () {
     let distributor, token;
     let owner, addr1, addr2;
 
@@ -26,9 +26,9 @@ describe("Y8uDistributor Tests AiMining", function () {
     beforeEach(async () => {
         [owner, addr1, addr2,addr3,addr4,addr5, addrOverAllocated] = await ethers.getSigners();
 
-        const Y8uDistributor = await ethers.getContractFactory("Y8uDistributor");
-        distributor = await Y8uDistributor.deploy(owner.address);
-        // Access the Y8uERC20 token instance from the Y8uDistributor contract
+        const Y8uDistributorTesting = await ethers.getContractFactory("Y8uDistributorTesting");
+        distributor = await Y8uDistributorTesting.deploy();
+        // Access the Y8uERC20 token instance from the Y8uDistributorTesting contract
         const tokenAddress = await distributor.y8u();
         token = await ethers.getContractAt("Y8uERC20", tokenAddress);
 
@@ -56,14 +56,17 @@ describe("Y8uDistributor Tests AiMining", function () {
 
     it("Should allow first valid claim in second month", async function () {
         await increaseTime(1);
-        await expect(distributor.claimAiMining()).to.be.revertedWith("claimable amount is 0");
+        await distributor.claimAiMining()
+        const balance = await distributor.totalClaimedAiMining();
+        expect(balance).to.equal(ethers.parseEther("1562500"));    
     });
 
 
     it("Should allow first valid claim in 3rd month", async function () {
         await increaseTime(2);
-        await expect(distributor.claimAiMining()).to.be.revertedWith("claimable amount is 0");
-
+        await distributor.claimAiMining()
+        const balance = await distributor.totalClaimedAiMining();
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(2)); 
     });
 
     it("Should allow first valid claim in 4rd month", async function () {
@@ -71,10 +74,10 @@ describe("Y8uDistributor Tests AiMining", function () {
         await distributor.claimAiMining();
 
         const balance = await distributor.totalClaimedAiMining();
-        expect(balance).to.equal(ethers.parseEther("2777778"));
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(3));
 
         await expect(distributor.claimAiMining()).to.be.revertedWith("claimable amount is 0");
-        expect(balance).to.equal(ethers.parseEther("2777778"));
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(3));
     });
 
 
@@ -105,28 +108,49 @@ describe("Y8uDistributor Tests AiMining", function () {
         await distributor.claimAiMining();
 
         const balance = await distributor.totalClaimedAiMining();
-        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(7));
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(5) + ethers.parseEther("2880859") * BigInt(4));
 
         await expect(distributor.claimAiMining()).to.be.revertedWith("claimable amount is 0");
-        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(7));
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(5) + ethers.parseEther("2880859") * BigInt(4));
     });
 
-    it("Should claim in 3rd and 6th month ", async function () {
+    it("Should claim in 3rd 6th  and 7th month ", async function () {
         await increaseTime(3);
         await distributor.claimAiMining();
         let balance = await distributor.totalClaimedAiMining();
-        expect(balance).to.equal(ethers.parseEther("2777778"));
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(3));
         await expect(distributor.claimAiMining()).to.be.revertedWith("claimable amount is 0");
 
         await increaseTime(2);
 
         await distributor.claimAiMining();
         balance = await distributor.totalClaimedAiMining();
-        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(3));
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(5));
 
         await expect(distributor.claimAiMining()).to.be.revertedWith("claimable amount is 0");
         balance = await distributor.totalClaimedAiMining();
-        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(3));
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(5));
+
+        await increaseTime(1);
+
+        await distributor.claimAiMining();
+        balance = await distributor.totalClaimedAiMining();
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(5) + ethers.parseEther("2880859"));
+
+        await expect(distributor.claimAiMining()).to.be.revertedWith("claimable amount is 0");
+        balance = await distributor.totalClaimedAiMining();
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(5) + ethers.parseEther("2880859"));
+    
+        await increaseTime(2);
+
+        await distributor.claimAiMining();
+        balance = await distributor.totalClaimedAiMining();
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(5) + ethers.parseEther("2880859") * BigInt(3));
+
+        await expect(distributor.claimAiMining()).to.be.revertedWith("claimable amount is 0");
+        balance = await distributor.totalClaimedAiMining();
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(5) + ethers.parseEther("2880859")* BigInt(3));
+    
     });
 
     it("Should claim every month to test if user gets it right ", async function () {
@@ -136,30 +160,30 @@ describe("Y8uDistributor Tests AiMining", function () {
 
         await distributor.claimAiMining();
         balance = await distributor.totalClaimedAiMining();
-        expect(balance).to.equal(ethers.parseEther("2777778"));
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(3));
 
         await increaseTime(1);
 
         await distributor.claimAiMining();
         balance = await distributor.totalClaimedAiMining();
-        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(2));
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(4));
 
         await increaseTime(1);
 
         await distributor.claimAiMining();
         balance = await distributor.totalClaimedAiMining();
-        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(3));
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(5));
 
         await increaseTime(1);
 
         await distributor.claimAiMining();
         balance = await distributor.totalClaimedAiMining();
-        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(4));
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(5) + ethers.parseEther("2880859"));
 
         await increaseTime(1);
         await distributor.claimAiMining();
         balance = await distributor.totalClaimedAiMining();
-        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(5));
+        expect(balance).to.equal(ethers.parseEther("1562500") * BigInt(5) + ethers.parseEther("2880859") * BigInt(2));
         await expect(distributor.claimAiMining()).to.be.revertedWith("claimable amount is 0");
 
         await increaseTime(100)

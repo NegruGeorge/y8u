@@ -18,7 +18,7 @@ async function increaseTime(months) {
     await network.provider.send("evm_mine");
   }
 
-describe("Y8uDistributor Tests Treasury", function () {
+describe("Y8uDistributorTesting Tests Treasury", function () {
     let distributor, token;
     let owner, addr1, addr2;
 
@@ -26,9 +26,9 @@ describe("Y8uDistributor Tests Treasury", function () {
     beforeEach(async () => {
         [owner, addr1, addr2,addr3,addr4,addr5, addrOverAllocated] = await ethers.getSigners();
 
-        const Y8uDistributor = await ethers.getContractFactory("Y8uDistributor");
-        distributor = await Y8uDistributor.deploy(owner.address);
-        // Access the Y8uERC20 token instance from the Y8uDistributor contract
+        const Y8uDistributorTesting = await ethers.getContractFactory("Y8uDistributorTesting");
+        distributor = await Y8uDistributorTesting.deploy();
+        // Access the Y8uERC20 token instance from the Y8uDistributorTesting contract
         const tokenAddress = await distributor.y8u();
         token = await ethers.getContractAt("Y8uERC20", tokenAddress);
 
@@ -52,37 +52,37 @@ describe("Y8uDistributor Tests Treasury", function () {
     });
 
     it("Should allow first valid claim ", async function () {
-        await increaseTime(12);
+        await increaseTime(6);
         await distributor.claimTreasury();
 
         const balance = await distributor.totalClaimedTreasury();
-        expect(balance).to.equal(ethers.parseEther("4166667"));
+        expect(balance).to.equal(ethers.parseEther("2777778"));
     
     });
 
 
     it("Should allow first valid claim in 3rd month", async function () {
-        await increaseTime(15);
+        await increaseTime(9);
         await distributor.claimTreasury();
 
         const balance = await distributor.totalClaimedTreasury();
-        expect(balance).to.equal(ethers.parseEther("4166667") * BigInt(4));
+        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(4));
     });
 
     it("Should allow first valid claim in 4rd month", async function () {
-        await increaseTime(16);
+        await increaseTime(10);
         await distributor.claimTreasury();
 
         const balance = await distributor.totalClaimedTreasury();
-        expect(balance).to.equal(ethers.parseEther("4166667") * BigInt(5));
+        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(5));
 
         await expect(distributor.claimTreasury()).to.be.revertedWith("claimable amount is 0");
-        expect(balance).to.equal(ethers.parseEther("4166667") * BigInt(5));
+        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(5));
     })
 
 
     it("Should allow first valid claim in final month", async function () {
-        await increaseTime(35);
+        await increaseTime(41);
         await distributor.claimTreasury();
 
         const balance = await distributor.totalClaimedTreasury();
@@ -92,7 +92,7 @@ describe("Y8uDistributor Tests Treasury", function () {
     });
 
     it("Should allow first valid claim in final month", async function () {
-        await increaseTime(36);
+        await increaseTime(42);
         await distributor.claimTreasury();
 
         const balance = await distributor.totalClaimedTreasury();
@@ -116,18 +116,18 @@ describe("Y8uDistributor Tests Treasury", function () {
         await increaseTime(16);
         await distributor.claimTreasury();
         let balance = await distributor.totalClaimedTreasury();
-        expect(balance).to.equal(ethers.parseEther("4166667")* BigInt(5));
+        expect(balance).to.equal(ethers.parseEther("2777778")* BigInt(11));
         await expect(distributor.claimTreasury()).to.be.revertedWith("claimable amount is 0");
 
         await increaseTime(5);
 
         await distributor.claimTreasury();
         balance = await distributor.totalClaimedTreasury();
-        expect(balance).to.equal(ethers.parseEther("4166667") * BigInt(10));
+        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(16));
 
         await expect(distributor.claimTreasury()).to.be.revertedWith("claimable amount is 0");
         balance = await distributor.totalClaimedTreasury();
-        expect(balance).to.equal(ethers.parseEther("4166667") * BigInt(10));
+        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(16));
     });
 
     it("Should claim every month to test if user gets it right ", async function () {
@@ -137,30 +137,30 @@ describe("Y8uDistributor Tests Treasury", function () {
 
         await distributor.claimTreasury();
         balance = await distributor.totalClaimedTreasury();
-        expect(balance).to.equal(ethers.parseEther("4166667")* BigInt(5));
+        expect(balance).to.equal(ethers.parseEther("2777778")* BigInt(11));
 
         await increaseTime(1);
 
         await distributor.claimTreasury();
         balance = await distributor.totalClaimedTreasury();
-        expect(balance).to.equal(ethers.parseEther("4166667")* BigInt(6));
+        expect(balance).to.equal(ethers.parseEther("2777778")* BigInt(12));
 
         await increaseTime(1);
 
         await distributor.claimTreasury();
         balance = await distributor.totalClaimedTreasury();
-        expect(balance).to.equal(ethers.parseEther("4166667")* BigInt(7));
+        expect(balance).to.equal(ethers.parseEther("2777778")* BigInt(13));
 
         await increaseTime(1);
 
         await distributor.claimTreasury();
         balance = await distributor.totalClaimedTreasury();
-        expect(balance).to.equal(ethers.parseEther("4166667") * BigInt(8));
+        expect(balance).to.equal(ethers.parseEther("2777778") * BigInt(14));
 
         await increaseTime(1);
         await distributor.claimTreasury();
         balance = await distributor.totalClaimedTreasury();
-        expect(balance).to.equal(ethers.parseEther("4166667")* BigInt(9));
+        expect(balance).to.equal(ethers.parseEther("2777778")* BigInt(15));
         await expect(distributor.claimTreasury()).to.be.revertedWith("claimable amount is 0");
 
         await increaseTime(100)

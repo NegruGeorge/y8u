@@ -18,7 +18,7 @@ async function increaseTime(months) {
     await network.provider.send("evm_mine");
   }
 
-describe("Y8uDistributor Tests ECOSYSTEM", function () {
+describe("Y8uDistributorTesting Tests ECOSYSTEM", function () {
     let distributor, token;
     let owner, addr1, addr2;
 
@@ -26,9 +26,9 @@ describe("Y8uDistributor Tests ECOSYSTEM", function () {
     beforeEach(async () => {
         [owner, addr1, addr2,addr3,addr4,addr5, addrOverAllocated] = await ethers.getSigners();
 
-        const Y8uDistributor = await ethers.getContractFactory("Y8uDistributor");
-        distributor = await Y8uDistributor.deploy(owner.address);
-        // Access the Y8uERC20 token instance from the Y8uDistributor contract
+        const Y8uDistributorTesting = await ethers.getContractFactory("Y8uDistributorTesting");
+        distributor = await Y8uDistributorTesting.deploy();
+        // Access the Y8uERC20 token instance from the Y8uDistributorTesting contract
         const tokenAddress = await distributor.y8u();
         token = await ethers.getContractAt("Y8uERC20", tokenAddress);
 
@@ -45,69 +45,90 @@ describe("Y8uDistributor Tests ECOSYSTEM", function () {
         }
     })
 
-    it("Should allow first valid claim in first month", async function () {
+    it("Should allow first valid claims", async function () {
         await distributor.claimEcosystem()
 
         const balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000"));
+        expect(balance).to.equal(ethers.parseEther("4000000"));
     });
 
-    it("Should allow first valid claim then second 3rd month wont work ", async function () {
+    it("Should allow first valid claim until 3rd month", async function () {
         await distributor.claimEcosystem()
 
         let balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000"));
+        expect(balance).to.equal(ethers.parseEther("4000000"));
         await increaseTime(1);
-        await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
 
-        await increaseTime(1);
-        await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
-
+        await distributor.claimEcosystem()
         balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000"));
-
-        await increaseTime(1);
-        await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
-
-        balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000"));
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(2));
 
         await increaseTime(1);
         await distributor.claimEcosystem()
         balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000") + ethers.parseEther("9800000"));
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(3));
+
+        await increaseTime(1);
+        await distributor.claimEcosystem()
+
+        balance = await distributor.totalClaimedEcosystem();
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(4));
+
 
         await increaseTime(1);
         await distributor.claimEcosystem()
         balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000") + ethers.parseEther("9800000") * BigInt(2));
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(5));
 
+        await increaseTime(1);
+        await distributor.claimEcosystem()
+        balance = await distributor.totalClaimedEcosystem();
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(6));
+
+        await increaseTime(1);
+        await distributor.claimEcosystem()
+        balance = await distributor.totalClaimedEcosystem();
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(6) + ethers.parseEther("10444444"));
+
+        await increaseTime(1);
+        await distributor.claimEcosystem()
+        balance = await distributor.totalClaimedEcosystem();
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(6) + ethers.parseEther("10444444") * BigInt(2));
+
+        await increaseTime(1);
+        await distributor.claimEcosystem()
+        balance = await distributor.totalClaimedEcosystem();
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(6) + ethers.parseEther("10444444") * BigInt(3));
+
+        // ...
+
+        await increaseTime(34);
+        await distributor.claimEcosystem()
+        balance = await distributor.totalClaimedEcosystem();
+        expect(balance).to.equal(ethers.parseEther("400000000"));
     });
 
 
     it("Should allow first valid claim in 3rd month", async function () {
-        await increaseTime(4);
+        await increaseTime(3);
         await distributor.claimEcosystem();
 
-        const balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000") + ethers.parseEther("9800000"));
+        balance = await distributor.totalClaimedEcosystem();
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(4));
     });
 
     it("Should allow first valid claim in 4rd month", async function () {
-        await increaseTime(5);
+        await increaseTime(4);
         await distributor.claimEcosystem();
-        balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000") + ethers.parseEther("9800000") * BigInt(2));
 
-        await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
         balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000") + ethers.parseEther("9800000") * BigInt(2));
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(5));
     });
 
 
 
     it("Should allow first valid claim in final month", async function () {
-        await increaseTime(39);
+        await increaseTime(42);
         await distributor.claimEcosystem();
 
         const balance = await distributor.totalClaimedEcosystem();
@@ -117,11 +138,11 @@ describe("Y8uDistributor Tests ECOSYSTEM", function () {
     });
 
     it("Should allow first valid claim in final month", async function () {
-        await increaseTime(40);
+        await increaseTime(43);
         await distributor.claimEcosystem();
 
         const balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("360000000"));
+        expect(balance).to.equal(ethers.parseEther("400000000"));
 
         await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
     });
@@ -131,7 +152,7 @@ describe("Y8uDistributor Tests ECOSYSTEM", function () {
         await distributor.claimEcosystem();
 
         const balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("360000000"));
+        expect(balance).to.equal(ethers.parseEther("400000000"));
 
         await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
     });
@@ -141,18 +162,18 @@ describe("Y8uDistributor Tests ECOSYSTEM", function () {
         await increaseTime(10);
         await distributor.claimEcosystem();
         let balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000") + ethers.parseEther("9800000") * BigInt(7));
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(6) + ethers.parseEther("10444444") * BigInt(5));
         await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
 
         await increaseTime(5);
 
         await distributor.claimEcosystem();
         balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000") + ethers.parseEther("9800000") * BigInt(12));
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(6) + ethers.parseEther("10444444") * BigInt(10));
 
         await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
         balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000") + ethers.parseEther("9800000") * BigInt(12));
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(6) + ethers.parseEther("10444444") * BigInt(10));
     });
 
     it("Should claim every month to test if user gets it right ", async function () {
@@ -161,34 +182,42 @@ describe("Y8uDistributor Tests ECOSYSTEM", function () {
 
         await distributor.claimEcosystem();
         balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000"));
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(2))
 
         await increaseTime(1);
-
-        await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
+        await distributor.claimEcosystem();
         balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000"));
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(3) )
 
         await increaseTime(1);
+        await distributor.claimEcosystem();
+        balance = await distributor.totalClaimedEcosystem();
 
-        await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(4) );
         
         await increaseTime(1);
 
         await distributor.claimEcosystem();
         balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000") + ethers.parseEther("9800000"));
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(5) );
 
-        await increaseTime(1);
+        await increaseTime(3);
         await distributor.claimEcosystem();
         balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("7200000") + ethers.parseEther("9800000") * BigInt(2));
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(6) + ethers.parseEther("10444444") * BigInt(2));
         await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
 
+        await increaseTime(3);
+        await distributor.claimEcosystem();
+        balance = await distributor.totalClaimedEcosystem();
+        expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(6) + ethers.parseEther("10444444") * BigInt(5));
+        await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
+        
+        
         await increaseTime(100)
         await distributor.claimEcosystem();
         balance = await distributor.totalClaimedEcosystem();
-        expect(balance).to.equal(ethers.parseEther("360000000"));
+        expect(balance).to.equal(ethers.parseEther("400000000"));
         await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
 
     });

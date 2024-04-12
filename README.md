@@ -13,50 +13,39 @@ For the following allocations, a Merkle Tree approach will be utilized to secure
 
 #### 1. Private Sale
 - **Allocation**: 20,000,000 tokens
-- **Vesting**: 1% at TGE, then 20-month linear vesting
 
 #### 2. Strategic Sale
-- **Allocation**: 25,000,000 tokens
-- **Vesting**: 10% at TGE, then 19-month linear vesting
+- **Allocation**: 30,000,000 tokens
 
 #### 3. Strategic Sale 2
 - **Allocation**: 10,000,000 tokens
-- **Vesting**: 1% at TGE, then 20-month linear vesting
 
 ### Direct Claims by Owner
 The following allocations will be claimed directly by the owner and distributed according to the vesting schedules.
 
 #### 5. Airdrop
 - **Allocation**: 5,000,000 tokens
-- **Vesting**: 20% immediately, then over 5 months
 
 #### 6. Team
 - **Allocation**: 100,000,000 tokens
-- **Vesting**: 10-month cliff, then 36-month linear vesting
 
 #### 7. Marketing
-- **Allocation**: 95,000,000 tokens
-- **Vesting**: 6-month cliff, then 36-month linear vesting
+- **Allocation**: 80,000,000 tokens
 
 #### 8. Treasury
 - **Allocation**: 100,000,000 tokens
-- **Vesting**: 12-month cliff, then 24-month linear vesting
 
 #### 9. Development
 - **Allocation**: 100,000,000 tokens
-- **Vesting**: 1-month cliff, then 48-month linear vesting
 
 #### 10. AI Mining
 - **Allocation**: 100,000,000 tokens
-- **Vesting**: 3-month cliff, then 36-month linear vesting
 
 #### 11. Liquidity, Exchanges & MM
-- **Allocation**: 80,000,000 tokens
-- **Vesting**: 100% at TGE
+- **Allocation**: 50,000,000 tokens
 
 #### 12. Ecosystem
-- **Allocation**: 360,000,000 tokens
-- **Vesting**: 2% at TGE, then 36-month linear vesting
+- **Allocation**: 400,000,000 tokens
 
 ## Purpose and Impact
 Each allocation is designed to serve a specific role in the project's lifecycle, ranging from initial development and team incentivization to community expansion and ecosystem sustainability. The chosen vesting schedules aim to strike a balance between

@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const { StandardMerkleTree } = require("@openzeppelin/merkle-tree");
 
-describe("Y8uDistributor Tests", function () {
+describe("Y8uDistributorTesting Tests", function () {
     let distributor, token;
     let owner, addr1, addr2;
     let merkleTree;
@@ -12,9 +12,9 @@ describe("Y8uDistributor Tests", function () {
     beforeEach(async () => {
         [owner, addr1, addr2] = await ethers.getSigners();
 
-        const Y8uDistributor = await ethers.getContractFactory("Y8uDistributor");
-        distributor = await Y8uDistributor.deploy(owner.address);
-        // Access the Y8uERC20 token instance from the Y8uDistributor contract
+        const Y8uDistributorTesting = await ethers.getContractFactory("Y8uDistributorTesting");
+        distributor = await Y8uDistributorTesting.deploy();
+        // Access the Y8uERC20 token instance from the Y8uDistributorTesting contract
         const tokenAddress = await distributor.y8u();
         token = await ethers.getContractAt("Y8uERC20", tokenAddress);
 
