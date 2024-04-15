@@ -61,9 +61,9 @@ contract Y8uDistributorTesting is Ownable, ReentrancyGuard {
 
     Y8uERC20 public y8u;
     
+    // constructor() Ownable(0xe8707Ed7E5e7A230c12d4DcC037827B7F4dC355c) {
     constructor() Ownable(msg.sender) {
 
-    // constructor() Ownable(0xe8707Ed7E5e7A230c12d4DcC037827B7F4dC355c) {
         y8u = new Y8uERC20();
 
         // mint public sale
@@ -321,9 +321,9 @@ contract Y8uDistributorTesting is Ownable, ReentrancyGuard {
         if(monthOfDistribution >=2  && monthOfDistribution <= 6){
             totalClaimable = 1_190_476 * (10 ** uint256(18)) * (monthOfDistribution - 1);
         }
-        else if (monthOfDistribution >= 7 && monthOfDistribution < 49) {
+        else if (monthOfDistribution >= 7 && monthOfDistribution < 48) {
             totalClaimable = 1_190_476 * (10 ** uint256(18)) * 5 + 2_239_229 * (10 ** uint256(18)) * (monthOfDistribution - 6);  // Monthly release for months 7 to 49
-        } else if (monthOfDistribution >= 49) {
+        } else if (monthOfDistribution >= 48) {
             totalClaimable = 100_000_000 * (10 ** uint256(18)); // Entire allocation is available after 49 months
         }
 
@@ -345,9 +345,9 @@ contract Y8uDistributorTesting is Ownable, ReentrancyGuard {
             totalClaimable = 1_562_500 * (10 ** uint256(18)) * (monthOfDistribution - 1);
         }
     
-        else if (monthOfDistribution >= 7 && monthOfDistribution < 39) {
+        else if (monthOfDistribution >= 7 && monthOfDistribution < 38) {
             totalClaimable = 1_562_500 * (10 ** uint256(18)) * 5 + 2_880_859 * (10 ** uint256(18)) * (monthOfDistribution - 6);  // Monthly release for months 7 to 39
-        } else if (monthOfDistribution >= 39) {
+        } else if (monthOfDistribution >= 38) {
             totalClaimable = 100_000_000 * (10 ** uint256(18)); // Entire allocation is available after 39 months
         }
 
@@ -365,9 +365,9 @@ contract Y8uDistributorTesting is Ownable, ReentrancyGuard {
         uint256 monthOfDistribution = (block.timestamp - tgeTimestamp) / 30 days + 1;
         uint256 totalClaimable;
 
-        if (monthOfDistribution >= 2 && monthOfDistribution < 26) {
+        if (monthOfDistribution >= 2 && monthOfDistribution < 25) {
             totalClaimable = 15_000_000 * (10 ** uint256(18)) + 1_458_333 * (10 ** uint256(18)) * (monthOfDistribution - 1);  // Monthly release for months 2 to 25
-        } else if (monthOfDistribution >=26) {
+        } else if (monthOfDistribution >=25) {
             totalClaimable = 50_000_000 * (10 ** uint256(18)); // Entire allocation is available after 25 months
         }
 
@@ -388,7 +388,7 @@ contract Y8uDistributorTesting is Ownable, ReentrancyGuard {
 
         if ( monthOfDistribution <= 6 ) {
             totalClaimable = 4_000_000 * (10 ** uint256(18))  * monthOfDistribution ; // from 1 to 6
-        } else if (monthOfDistribution >=7 && monthOfDistribution <43) {
+        } else if (monthOfDistribution >=7 && monthOfDistribution < 42) {
             totalClaimable = 4_000_000 * (10 ** uint256(18)) * 6 + 10_444_444 * (10 ** uint256(18)) * (monthOfDistribution - 6);  // Monthly release for months 7 to 42
         } else {
             totalClaimable = 400_000_000 * (10 ** uint256(18)); // Entire allocation is available after 42 months

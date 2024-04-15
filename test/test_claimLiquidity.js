@@ -116,6 +116,16 @@ describe("Y8uDistributorTesting Tests Liquidity", function () {
 
 
     it("Should allow first valid claim in final month", async function () {
+        await increaseTime(24);
+        await distributor.claimLiquidityExchangesMM();
+
+        const balance = await distributor.totalClaimedLiquidityExchangesMM();
+        expect(balance).to.equal(await distributor.LIQUIDITY_EXCHANGES_MM());
+
+        expect(balance).to.equal(ethers.parseEther("50000000"));
+    });
+
+    it("Should allow first valid claim in final month", async function () {
         await increaseTime(25);
         await distributor.claimLiquidityExchangesMM();
 

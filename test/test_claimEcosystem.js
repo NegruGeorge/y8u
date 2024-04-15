@@ -125,7 +125,15 @@ describe("Y8uDistributorTesting Tests ECOSYSTEM", function () {
         expect(balance).to.equal(ethers.parseEther("4000000") * BigInt(5));
     });
 
+    it("Should allow first valid claim in final month", async function () {
+        await increaseTime(41);
+        await distributor.claimEcosystem();
 
+        const balance = await distributor.totalClaimedEcosystem();
+        expect(balance).to.equal(await distributor.ECOSYSTEM());
+
+        await expect(distributor.claimEcosystem()).to.be.revertedWith("claimable amount is 0");
+    });
 
     it("Should allow first valid claim in final month", async function () {
         await increaseTime(42);

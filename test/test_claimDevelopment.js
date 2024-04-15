@@ -79,6 +79,15 @@ describe("Y8uDistributorTesting Tests Development", function () {
         expect(balance).to.equal(ethers.parseEther("1190476") * BigInt(3));
     });
 
+    it("Should allow first valid claim in final month", async function () {
+        await increaseTime(47);
+        await distributor.claimDevelopment();
+
+        const balance = await distributor.totalClaimedDevelopment();
+        expect(balance).to.equal(ethers.parseEther("100000000"));
+
+        await expect(distributor.claimDevelopment()).to.be.revertedWith("claimable amount is 0");
+    });
 
     it("Should allow first valid claim in final month", async function () {
         await increaseTime(48);
